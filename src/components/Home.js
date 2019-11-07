@@ -60,9 +60,11 @@ export default function HomePage(props){
     let handlePOIsClick = async e => {
 
         let poiList = await request(
+            "GET",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}`,
             getTokenSilently,
-            loginWithRedirect
+            loginWithRedirect,
+            null
         );
 
         if (poiList && poiList.length > 0) {

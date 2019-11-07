@@ -2,12 +2,9 @@ import React, {useState, useEffect} from 'react';
 import './EditPage.css';
 import {useAuth0} from "../react-auth0-spa";
 import {Formik} from "formik";
-import requestPost from "../utils/requestPost";
 import endpoints from "../endpoints";
 import {Link, useHistory} from "react-router-dom";
 import request from "../utils/request";
-import requestDelete from "../utils/requestDelete";
-import requestPatch from "../utils/requestPatch";
 import {Button} from "reactstrap";
 import DeleteModal from "../components/DeleteModal";
 
@@ -65,9 +62,11 @@ export default function EditTag(props){
     //fetch the tag and assign it to the state of the component
     let fetchAndSetTags = async () => {
         let response = await request(
+            "GET",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.tags}${currentId}`,
             getTokenSilently,
-            loginWithRedirect
+            loginWithRedirect,
+            null
         );
         if (response && !response.error) {
             console.log(response);
@@ -87,10 +86,12 @@ export default function EditTag(props){
 
     //delete the current tag
     let deleteTag = async () => {
-        let response = await requestDelete(
+        let response = await request(
+            "DELETE",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.tags}${currentId}`,
             getTokenSilently,
-            loginWithRedirect
+            loginWithRedirect,
+            null
         );
         console.log(response);
         currentId = 0;
@@ -122,7 +123,8 @@ export default function EditTag(props){
                             setSubmitting(false);
 
                             if(isNew){
-                                let response = await requestPost(
+                                let response = await request(
+                                    "POST",
                                     `${process.env.REACT_APP_SERVER_URL}${endpoints.tags}`,
                                     getTokenSilently,
                                     loginWithRedirect,
@@ -133,7 +135,8 @@ export default function EditTag(props){
                                 currentId = response.id;
                             }
                             else{
-                                let response = await requestPatch(
+                                let response = await request(
+                                    "PATCH",
                                     `${process.env.REACT_APP_SERVER_URL}${endpoints.tags}${currentId}`,
                                     getTokenSilently,
                                     loginWithRedirect,

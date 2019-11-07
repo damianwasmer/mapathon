@@ -57,7 +57,7 @@ export default class ReactMap extends Component<{}, State> {
             console.log(lat, lng);
             this.sendDataLatLng(lat, lng);
 
-            this.setState(state => ({isAdding: !state.isAdding}));
+            this.setState({isAdding: !this.state.isAdding});
         }
     }
 

@@ -6,6 +6,7 @@ import ModalListTagCategorie from "./ModalListTagCategorie";
 import requestPatch from "../utils/requestPatch";
 import endpoints from "../endpoints";
 import {useAuth0} from "../react-auth0-spa";
+import request from "../utils/request";
 
 export default function BoxCategories(props){
 
@@ -19,7 +20,8 @@ export default function BoxCategories(props){
     let setArrayC = (value) => setArrayCategories(value);
 
     let saveChangeCategories = async () => {
-        let response = requestPatch(
+        let response = await request(
+            "PATCH",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}${props.thisPoi.id}${endpoints.categories}`,
             getTokenSilently,
             loginWithRedirect,

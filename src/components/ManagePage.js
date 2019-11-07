@@ -52,9 +52,11 @@ const ManagePage = (props) => {
 
         //category part
         let responseCat = await request(
+            "GET",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}`,
             getTokenSilently,
-            loginWithRedirect
+            loginWithRedirect,
+            null
         );
 
         if (responseCat && responseCat.length > 0) {
@@ -64,9 +66,11 @@ const ManagePage = (props) => {
 
         //tags part
         let responseTag = await request(
+            "GET",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.tags}`,
             getTokenSilently,
-            loginWithRedirect
+            loginWithRedirect,
+            null
         );
 
         if (responseTag && responseTag.length > 0) {

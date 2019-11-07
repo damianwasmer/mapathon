@@ -87,9 +87,11 @@ function TeachersCode(props){
   let handlePOIsClick = async e => {
     e.preventDefault();
     let pois = await request(
+        "GET",
         `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}`,
         getTokenSilently,
-        loginWithRedirect
+        loginWithRedirect,
+        null
     );
 
     if (pois && pois.length > 0) {

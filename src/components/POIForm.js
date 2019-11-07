@@ -1,12 +1,11 @@
-import React, {useState} from 'react';
-import RequestPost from "../utils/requestPost"
+import React from 'react';
 import { Formik } from 'formik';
 import './POIForm.css';
 import endpoints from "../endpoints";
 import {useAuth0} from "../react-auth0-spa";
 import {Button} from "reactstrap";
 import {useHistory} from "react-router-dom";
-
+import request from "../utils/request";
 function POIForm(props){
 
     let { loginWithRedirect, getTokenSilently } = useAuth0();
@@ -39,7 +38,8 @@ function POIForm(props){
     if(props.thisPoi.image){
         img = <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}} src={props.thisPoi.image} />
     }else{
-        img = <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}} src={"https://www.groupeiam.com/wp-content/plugins/post-grid/assets/frontend/css/images/placeholder.png"}/>
+        img = <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}}
+                   src={"https://www.groupeiam.com/wp-content/plugins/post-grid/assets/frontend/css/images/placeholder.png"}/>
     }
 
     return(
@@ -74,15 +74,20 @@ function POIForm(props){
                         setSubmitting(false);
 
                         if(props.isNew){
-                            let response = await RequestPost(`${process.env.REACT_APP_SERVER_URL}${endpoints.pois}`,
-                              getTokenSilently,
-                              loginWithRedirect,
-                              values
+                            let response = await request(
+                                "POST",
+                                `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}`,
+                                getTokenSilently,
+                                loginWithRedirect,
+                                values
                             );
                             alert(response);
                             console.log(response);
                             console.log(response.id);
                             currentId = response.id ;
+                            props.setCurrentId(currentId);
+                            props.setIsClicked(false);
+                            history.push("/details/" + currentId);
                         }else{
                             props.editPoi(values);
                             props.setValueButtonEdit("Edit");

@@ -6,13 +6,11 @@ import {Button} from 'reactstrap';
 import {useAuth0} from "../react-auth0-spa";
 import request from "../utils/request";
 import endpoints from "../endpoints";
-import requestDelete from "../utils/requestDelete";
 import DeleteModal from "./DeleteModal";
 import {Link, useHistory} from "react-router-dom";
 import PreviewMap from "./PreviewMap";
 import "./Details.css";
 import LikesBox from "./LikesBox";
-import requestPatch from "../utils/requestPatch";
 
 export default function Details(props){
 
@@ -45,6 +43,7 @@ export default function Details(props){
 
     useEffect(() => {
         let myPoi = request(
+            "GET",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}${'/'+param}`,
             getTokenSilently,
             loginWithRedirect,
@@ -52,7 +51,7 @@ export default function Details(props){
         ).then(token => {setPoi(token)} );
         setIsChangeCategoriesTags(false);
         setIsChangeLike(false);
-    }, [isChangeCategoriesTags, isChangeLike, isPosEdited]);
+    }, [isChangeCategoriesTags, isChangeLike, isPosEdited, currentId]);
 
     useEffect( () => {
 
@@ -117,12 +116,18 @@ export default function Details(props){
         }
     };
 
+    let setCurrentId = (newId) => {
+        currentId = newId;
+    };
+
     //Delete the current poi (only avaliable if the user is the creator)
     let deletePoi = async () => {
-        let response = await requestDelete(
+        let response = await request(
+            "DELETE",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}${currentId}`,
             getTokenSilently,
-            loginWithRedirect
+            loginWithRedirect,
+            null
         );
         console.log(response);
         currentId = 0;
@@ -130,7 +135,8 @@ export default function Details(props){
     };
 
     let editPoi = async (values) => {
-        let response = await requestPatch(
+        let response = await request(
+            "PATCH",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}${currentId}`,
             getTokenSilently,
             loginWithRedirect,
@@ -144,7 +150,7 @@ export default function Details(props){
 
     useEffect(() => {
         fetchCategoriesAndTags();
-    }, []);
+    }, [currentId]);
 
     let onChangeCategoriesTag = (value) => setIsChangeCategoriesTags(value);
     let onChangeLike = (value) => setIsChangeLike(value);
@@ -154,9 +160,11 @@ export default function Details(props){
 
         //category part
         let responseCat = await request(
+            "GET",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}`,
             getTokenSilently,
-            loginWithRedirect
+            loginWithRedirect,
+            null
         );
 
         if (responseCat && responseCat.length > 0) {
@@ -165,9 +173,11 @@ export default function Details(props){
 
         //tags part
         let responseTag = await request(
+            "GET",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.tags}`,
             getTokenSilently,
-            loginWithRedirect
+            loginWithRedirect,
+            null
         );
 
         if (responseTag && responseTag.length > 0) {
@@ -175,9 +185,11 @@ export default function Details(props){
         }
 
         let responseStat = await request(
+            "GET",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.status}`,
             getTokenSilently,
-            loginWithRedirect
+            loginWithRedirect,
+            null
         );
 
         if (responseStat && responseStat.length > 0) {
@@ -228,7 +240,9 @@ export default function Details(props){
                     )}
                 </div>
 
-                <POIForm thisPoi={poi} isEdit={isEdit} setIsEdit={setIsEdit} newPoi={newPOI} currentId={currentId} isNew={isNew} isClicked={isClicked}
+                <POIForm thisPoi={poi} isEdit={isEdit} setIsEdit={setIsEdit} newPoi={newPOI}
+                         currentId={currentId} setCurrentId={setCurrentId} isNew={isNew} isClicked={isClicked}
+                         setIsClicked={setIsClicked}
                          setValueButtonEdit={setValueButtonEdit} editPoi={editPoi}/>
 
                 {!isEdit && !isNew &&

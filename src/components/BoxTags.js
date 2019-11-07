@@ -5,6 +5,7 @@ import {useAuth0} from "../react-auth0-spa";
 import requestPatch from "../utils/requestPatch";
 import endpoints from "../endpoints";
 import ModalListTagCategorie from "./ModalListTagCategorie";
+import request from "../utils/request";
 
 export default function BoxTags(props) {
 
@@ -19,7 +20,8 @@ export default function BoxTags(props) {
     let setArrayT = (value) => setArrayTags(value);
 
     let saveChangeTags = async () => {
-        let response = requestPatch(
+        let response = await request(
+            "PATCH",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}${props.thisPoi.id}${endpoints.tags}`,
             getTokenSilently,
             loginWithRedirect,

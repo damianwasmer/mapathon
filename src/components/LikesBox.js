@@ -3,6 +3,7 @@ import endpoints from "../endpoints";
 import requestPatch from "../utils/requestPatch";
 import {useAuth0} from "../react-auth0-spa";
 import "./Details.css"
+import request from "../utils/request";
 
 export default function LikesBox(props){
 
@@ -21,7 +22,8 @@ export default function LikesBox(props){
     }
 
     let saveLike = async () => {
-        let response = requestPatch(
+        let response = request(
+            "PATCH",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}${props.thisPoi.id}${endpoints.like}`,
             getTokenSilently,
             loginWithRedirect
@@ -29,7 +31,8 @@ export default function LikesBox(props){
     }
 
     let saveUnlike = async () => {
-        let response = requestPatch(
+        let response = request(
+            "PATCH",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}${props.thisPoi.id}${endpoints.unlike}`,
             getTokenSilently,
             loginWithRedirect

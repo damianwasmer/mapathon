@@ -1,13 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import './EditPage.css';
 import {Formik} from "formik";
-import requestPost from "../utils/requestPost";
 import {useAuth0} from "../react-auth0-spa";
 import endpoints from "../endpoints";
 import request from "../utils/request";
 import {Link, useHistory} from "react-router-dom";
-import requestPatch from "../utils/requestPatch";
-import requestDelete from "../utils/requestDelete";
 import {Button} from "reactstrap";
 import DeleteModal from "../components/DeleteModal";
 
@@ -67,9 +64,11 @@ export default function EditCategory(props) {
     //get category from the server
     let fetchAndSetCategory = async () => {
         let response = await request(
+            "GET",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}${currentId}`,
             getTokenSilently,
-            loginWithRedirect
+            loginWithRedirect,
+            null
         );
 
         if (response && !response.error) {
@@ -89,10 +88,12 @@ export default function EditCategory(props) {
 
     //delete the current category
     let deleteCategory = async () => {
-        let response = await requestDelete(
+        let response = await request(
+            "DELETE",
             `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}${currentId}`,
             getTokenSilently,
-            loginWithRedirect
+            loginWithRedirect,
+            null
         );
         console.log(response);
         currentId = 0;
@@ -123,7 +124,8 @@ export default function EditCategory(props) {
                             setSubmitting(false);
 
                             if(isNew){
-                                let response = await requestPost(
+                                let response = await request(
+                                    "POST",
                                     `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}`,
                                     getTokenSilently,
                                     loginWithRedirect,
@@ -134,7 +136,8 @@ export default function EditCategory(props) {
                                 currentId = response.id;
                             }
                             else{
-                                let response = await requestPatch(
+                                let response = await request(
+                                    "PATCH",
                                     `${process.env.REACT_APP_SERVER_URL}${endpoints.categories}${currentId}`,
                                     getTokenSilently,
                                     loginWithRedirect,

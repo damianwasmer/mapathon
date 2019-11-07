@@ -1,13 +1,29 @@
-export default async function(url, getTokenSilently, loginWithRedirect) {
+export default async function(method,  url, getTokenSilently, loginWithRedirect, body) {
   try {
     let token = await getTokenSilently();
+    let init = null;
 
-    let response = await fetch(url, {
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`
+    if(method === "GET" || method === "DELETE"){
+      init = {
+        method: method,
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`
+        }
       }
-    });
+    }else{
+      init = {
+        method: method,
+        body: JSON.stringify(body),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      }
+    }
+
+    let response = await fetch(url, init);
 
     let data = await response.json();
     return data;
