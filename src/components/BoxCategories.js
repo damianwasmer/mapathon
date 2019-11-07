@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import ModalCategories from "./ModalCategories";
 import "./Box.css"
 import addLogo from "../assets/add-sign.png"
 import ModalListTagCategorie from "./ModalListTagCategorie";
-import requestPatch from "../utils/requestPatch";
 import endpoints from "../endpoints";
 import {useAuth0} from "../react-auth0-spa";
 import request from "../utils/request";
@@ -28,14 +27,16 @@ export default function BoxCategories(props){
             arrayCategories
         );
         setArrayCategories([]);
-    }
+    };
 
     //returns a box With an add button and all categories
     return(
         <div className="categories-box">
             <div><h3 style={{display: "inline-block"}}>Categories</h3>
                 <span> </span>{ poiCategories && props.thisPoi && (props.currentUser.sub === props.thisPoi.Creator.id) &&
-                <button className="button-add-category" onClick={toggle}><img style={{maxWidth: '15px'}} src={addLogo}/>Manage categories</button>
+                <button className="button-add-category" onClick={toggle}>
+                    <img style={{maxWidth: '15px'}} src={addLogo} alt="logo"/>Manage categories
+                </button>
             }
             </div>
 

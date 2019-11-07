@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import endpoints from "../endpoints";
-import requestPatch from "../utils/requestPatch";
 import {useAuth0} from "../react-auth0-spa";
-import "./Details.css"
+import "../layouts/Details.css"
 import request from "../utils/request";
 
 export default function LikesBox(props){
@@ -19,7 +18,7 @@ export default function LikesBox(props){
             saveLike();
         }
         props.onChangeLike(true);
-    }
+    };
 
     let saveLike = async () => {
         let response = request(
@@ -28,7 +27,7 @@ export default function LikesBox(props){
             getTokenSilently,
             loginWithRedirect
         ).then(token => (console.log(token)));
-    }
+    };
 
     let saveUnlike = async () => {
         let response = request(
@@ -37,7 +36,7 @@ export default function LikesBox(props){
             getTokenSilently,
             loginWithRedirect
         ).then((token) => (console.log(token)));
-    }
+    };
 
     if(poi.liked){
         button = <img style={styleImg} onClick={onClickButton} id={"btnLike"} src={"https://image.flaticon.com/icons/svg/148/148836.svg"}/>
@@ -57,4 +56,4 @@ const styleImg = {
     weight : "50px",
     height : "50px",
     float : "right",
-}
+};

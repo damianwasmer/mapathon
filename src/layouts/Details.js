@@ -1,16 +1,16 @@
-import React, {useState, useEffect, Dialog} from "react";
-import POIForm from "./POIForm";
-import BoxCategories from "./BoxCategories";
-import BoxTags from "./BoxTags";
+import React, {useState, useEffect} from "react";
+import POIForm from "../components/POIForm";
+import BoxCategories from "../components/BoxCategories";
+import BoxTags from "../components/BoxTags";
 import {Button} from 'reactstrap';
 import {useAuth0} from "../react-auth0-spa";
 import request from "../utils/request";
 import endpoints from "../endpoints";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "../components/DeleteModal";
 import {Link, useHistory} from "react-router-dom";
-import PreviewMap from "./PreviewMap";
+import PreviewMap from "../components/PreviewMap";
 import "./Details.css";
-import LikesBox from "./LikesBox";
+import LikesBox from "../components/LikesBox";
 
 export default function Details(props){
 

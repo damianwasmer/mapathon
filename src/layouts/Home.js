@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import "./Home.css";
-import ReactMap from "./Map";
-import POIList from "./POIList";
+import ReactMap from "../components/Map";
+import POIList from "../components/POIList";
 import request from "../utils/request";
 import endpoints from "../endpoints";
 import {useAuth0} from "../react-auth0-spa";

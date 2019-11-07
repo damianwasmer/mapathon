@@ -6,6 +6,7 @@ import {useAuth0} from "../react-auth0-spa";
 import {Button} from "reactstrap";
 import {useHistory} from "react-router-dom";
 import request from "../utils/request";
+
 function POIForm(props){
 
     let { loginWithRedirect, getTokenSilently } = useAuth0();

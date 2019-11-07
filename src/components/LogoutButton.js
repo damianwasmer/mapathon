@@ -8,5 +8,5 @@ export default function LogoutButton(){
     if(usr.isAuthenticated){
         return <NavLink onClick={usr.logout} href="#">Change User</NavLink>
     }
-    return <NavLink></NavLink>
+    return <NavLink/>
 }

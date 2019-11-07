@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import {Marker, Popup} from "react-leaflet";
 import Button from "reactstrap/es/Button";
 import './Popup.css';
 import './POI.css';
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 import L from "leaflet";
 
 export default function MarkerList(props){

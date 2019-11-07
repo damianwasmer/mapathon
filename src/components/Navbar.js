@@ -7,17 +7,9 @@ import {
     Collapse,
     Navbar,
     NavbarToggler,
-    NavbarBrand,
     Nav,
     NavItem,
-    NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem } from 'reactstrap';
-import request from "../utils/request";
-import endpoints from "../endpoints";
-import { useAuth0 } from "../react-auth0-spa";
+    NavLink} from 'reactstrap';
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import "./Navbar.css";

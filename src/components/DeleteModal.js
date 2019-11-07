@@ -46,6 +46,6 @@ const DeleteModal = (props) => {
             </Modal>
         </div>
     );
-}
+};
 
 export default DeleteModal;

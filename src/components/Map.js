@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'
+import React, { Component} from 'react'
 import { Map, TileLayer, Marker, Popup} from 'react-leaflet';
 import L from 'leaflet';
 import "./Map.css";
@@ -20,7 +20,7 @@ export default class ReactMap extends Component<{}, State> {
             lat: 0,
             lng: 0
         }
-    }
+    };
 
     //Recenter the position of the map
     recenterMap(newPosition){
@@ -59,34 +59,33 @@ export default class ReactMap extends Component<{}, State> {
 
             this.setState({isAdding: !this.state.isAdding});
         }
-    }
+    };
 
     //Send data to home jonas
     sendDataLatLng = (lat, lng) => {
         this.props.callbackHandleNewPoiClicking(lat, lng);
-    }
+    };
 
     //Toggle the add click jonas
     toggleAdding = () => {
         L.DomUtil.addClass(this.leafletMap.leafletElement._container,'crosshair-cursor-enabled');
         this.setState(state => ({isAdding: !state.isAdding}));
-    }
+    };
 
     getEditMarkerState = (editMarkerState) => {
         this.sendEditMarkerState(editMarkerState)
-    }
+    };
 
     addPoiOnUserPos = () => {
         this.sendDataLatLng(this.state.currentLatLng.lat, this.state.currentLatLng.lng);
-    }
+    };
 
     sendEditMarkerState = (editMarkerState) => {
         this.props.callBackEditMarkerState(editMarkerState);
-    }
+    };
 
     //returns a leaflet map with all markers
     render() {
-        const position = [this.state.lat, this.state.lng];
 
         const myIcon = L.icon({
             iconUrl: require('../userMarker.svg'),

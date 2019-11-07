@@ -12,7 +12,7 @@ export function CheckBoxElement(props) {
         }else{
             setIsChecked(true);
         }
-    }
+    };
 
     let isImageExists = () => {
 
@@ -22,35 +22,35 @@ export function CheckBoxElement(props) {
             return "https://static.thenounproject.com/png/340719-200.png"
         }
 
-    }
+    };
 
     return(
       <tr id={props.id+"div"} style={styleTab}>
           <td style ={styleCheckBox}><input type="checkbox" id={props.id} name={props.nameElement} onChange={manageChange} checked={isChecked} style={styleCb}/></td>
           <td style={styleLigne}><label htmlFor={props.id} id={"label"}>{props.nameElement}</label></td>
-          <td><img src={isImageExists()} style={styleImg}/></td>
+          <td><img alt="icon" src={isImageExists()} style={styleImg}/></td>
       </tr>
     )
 }
 
 const styleCb = {
     margin : "10px",
-}
+};
 
 const styleImg = {
     width : "35px",
     height : "35px",
-}
+};
 
 const styleTab = {
     borderBottom : "1px solid",
-}
+};
 
 const styleLigne = {
     paddingRight : "180px"
-}
+};
 
 const styleCheckBox = {
     padding: "10px"
-}
+};
 

@@ -7,12 +7,12 @@ import Loading from "./components/Loading";
 import POI from "./components/POI";
 import CustomNavbar from "./components/Navbar";
 import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
-import About from "./components/About";
-import HelpPage from "./components/Help";
-import Home from "./components/Home";
+import About from "./layouts/About";
+import HelpPage from "./layouts/Help";
+import Home from "./layouts/Home";
 import FooterSection from "./components/Footer";
-import Details from "./components/Details";
-import ManagePage from "./components/ManagePage";
+import Details from "./layouts/Details";
+import ManagePage from "./layouts/ManagePage";
 import EditCategory from "./layouts/EditCategory";
 import EditTag from "./layouts/EditTag";
 

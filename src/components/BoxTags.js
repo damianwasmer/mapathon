@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import addLogo from "../assets/add-sign.png";
 import Tag from "./Tag";
 import {useAuth0} from "../react-auth0-spa";
-import requestPatch from "../utils/requestPatch";
 import endpoints from "../endpoints";
 import ModalListTagCategorie from "./ModalListTagCategorie";
 import request from "../utils/request";
@@ -28,7 +27,7 @@ export default function BoxTags(props) {
             arrayTags
         );
         setArrayTags([]);
-    }
+    };
 
     //returns a box With an add button and all tags
     return(
@@ -36,7 +35,9 @@ export default function BoxTags(props) {
             <div><h3 style={{display: "inline-block"}}>Tags</h3>
                 <span> </span>
                 { poiTags && props.thisPoi && (props.currentUser.sub === props.thisPoi.Creator.id) &&
-                <button className="button-add-category" onClick={toggle}><img style={{maxWidth: '15px'}} src={addLogo}/>Manage tags</button>
+                <button className="button-add-category" onClick={toggle}>
+                    <img style={{maxWidth: '15px'}} src={addLogo} alt="logo"/>Manage tags
+                </button>
                 }
             <span> </span>
             </div>
