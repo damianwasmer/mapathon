@@ -16,7 +16,7 @@ export function CheckBoxElement(props) {
 
     let isImageExists = () => {
 
-        if(props.picture.length > 0){
+        if(props.picture && props.picture.length > 0){
             return props.picture
         }else{
             return "https://static.thenounproject.com/png/340719-200.png"

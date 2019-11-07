@@ -21,7 +21,7 @@ const ManagePage = (props) => {
     //Filtering
     let usr = useAuth0();
     let [filterusr, setFilterUsr] = useState(false);
-    let [groupnr, setGroupnr] = useState(3);
+    let [groupnr, setGroupnr] = useState(10);
     let categoriesnew = categories;
     let tagsnew = tags;
 
