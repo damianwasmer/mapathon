@@ -174,7 +174,9 @@ export default function Details(props){
         return(
             <div>
 
-                <LikesBox thisPoi={poi} onChangeLike={onChangeLike}/>
+                {!isEdit && !isNew &&
+                    <LikesBox thisPoi={poi} onChangeLike={onChangeLike}/>
+                }
 
                 {(poiCreator && currentUser.sub === poiCreator.id) &&
                 <div className='div-button'>
