@@ -5,6 +5,7 @@ import "./About.css";
 * About Page, used to display informations about us*/
 export default class AboutPage extends React.Component{
 
+  
   render(){
     return(
       <div>
