@@ -25,7 +25,7 @@ export default function HomePage(props){
 
     //Attributes for the groupe filtering
     const [dropdownOpen, setDropdownOpen] = useState(false);
-    const [dropDownValue, setDropDownValue] = useState("Select a group");
+    const [dropDownValue, setDropDownValue] = useState("All");
     const toggleDropdown = () => setDropdownOpen(prevState => !prevState);
 
 
