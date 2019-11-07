@@ -7,17 +7,7 @@ export default function LikesBox(props){
 
     let { loginWithRedirect, getTokenSilently } = useAuth0();
     let poi = props.thisPoi;
-    let [valueBtn, setValueBtn] = useState("Bug to correct");
-
-    let initializeButton = () => {
-        console.log("JE SUIS LA")
-        console.log(poi.liked)
-        if(poi.liked && poi != undefined){
-            setValueBtn("Unlike : " + poi.liked)
-        }else if(poi != undefined){
-            setValueBtn("Like : " + poi.liked)
-        }
-    }
+    let button;
 
     let onClickButton = () => {
 
@@ -26,8 +16,6 @@ export default function LikesBox(props){
         }else{
             saveLike();
         }
-
-        setValueBtn(initializeButton);
         props.onChangeLike(true);
     }
 
@@ -47,15 +35,16 @@ export default function LikesBox(props){
         ).then((token) => (console.log(token)));
     }
 
+    if(poi.liked){
+        button = <img onClick={onClickButton} id={"btnLike"} src={"https://image.flaticon.com/icons/svg/148/148836.svg"}/>
+    }else{
+        button = <img onClick={onClickButton} id={"btnLike"} src={"https://image.flaticon.com/icons/svg/149/149217.svg"}/>
+    }
+
     return(
         <div>
-            { props.thisPoi && initializeButton &&
-                <div>
-                    <label>Likes : {poi.likes}</label>
-                    <button onClick={onClickButton} id={"btnLike"}>{valueBtn}</button>
-                </div>
-            }
-
+            <label>Likes : {poi.likes}</label>
+            {button}
         </div>
     )
 
