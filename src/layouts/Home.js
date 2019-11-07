@@ -31,13 +31,13 @@ export default function HomePage(props){
 
     //Change the value of the dropdown
     let changeValue = e => {
-        setDropDownValue(e.currentTarget.textContent)
-        if(e.currentTarget.textContent == "All"){
+        setDropDownValue(e.currentTarget.textContent);
+        if(e.currentTarget.textContent === "All"){
             setGroupnr(10)
         } else {
             setGroupnr(e.currentTarget.textContent.substr(6,1))
         }
-    }
+    };
 
     //to save the filtered list of poi's
     let poisnew = pois;
@@ -46,15 +46,17 @@ export default function HomePage(props){
         setFilterUsr(!filterusr);
     };
 
-    if(groupnr == 10 && filterusr){
-        poisnew = pois.filter(poi => poi.Creator.name == [usr.user.name]);
-    } else if(groupnr == 10){
+    if(groupnr === 10 && filterusr){
+        poisnew = pois.filter(poi => poi.Creator.name === [usr.user.name]);
+    } else if(groupnr === 10){
         poisnew = pois;
-    } else if(groupnr != 10 && filterusr){
-        poisnew = pois.filter(poi => poi.group == [groupnr] && poi.Creator.name == [usr.user.name]);
-    } else if (groupnr != 10 ){
-        poisnew = pois.filter(poi => poi.group == [groupnr]);
+    } else if(groupnr !== 10 && filterusr){
+        poisnew = pois.filter(poi => poi.group === [groupnr] && poi.Creator.name === [usr.user.name]);
+    } else if (groupnr !== 10 ){
+        poisnew = pois.filter(poi => poi.group === [groupnr]);
     }
+    //sort the list of poi alphabetically
+    pois.sort((a, b) => a.name.localeCompare(b.name));
 
     // get all the POI informations
     let handlePOIsClick = async e => {
@@ -71,7 +73,7 @@ export default function HomePage(props){
             console.log(poiList);
             setPois(poiList);
         }
-    }
+    };
 
     //Callback function to get lat and lng Jonas
     let handleNewPoiClicking = (lat, lng) => {
@@ -79,20 +81,20 @@ export default function HomePage(props){
         lngToPass = lng;
         sendDataLatLng(latToPass, lngToPass);
         history.push("/details/");
-    }
+    };
 
     let getEditMarkerState = (editMarkerState) => {
         sendEditMarkerState(editMarkerState)
-    }
+    };
 
     let sendEditMarkerState = (editMarkerState) => {
         props.callBackEditMarkerState(editMarkerState);
-    }
+    };
 
     //Send data to App Jonas
     let sendDataLatLng = (lat, lng) => {
         props.callbackHandleNewPoiClicking(lat, lng);
-    }
+    };
 
     //Handles clicks on a poi from the list
     //updates the view of the map accordingly
@@ -106,12 +108,12 @@ export default function HomePage(props){
         //use the map ref to recenter the map
         mapRef.current.recenterMap(newPosition);
         setLastPoi(id);
-    }
+    };
 
     //gets the poi from the specified id
     let getPoiById = (id) =>{
         return pois.find(poi => poi.id === id);
-    }
+    };
 
     //Create new Modal Jonas
     const {
@@ -126,7 +128,7 @@ export default function HomePage(props){
     const addNewPoiClicking = () => {
         mapRef.current.toggleAdding();
         setModal(!modal);
-    }
+    };
 
     //end new modal
 
@@ -134,7 +136,13 @@ export default function HomePage(props){
     return(
         <div className="home-div">
             <div className="map-div">
-                <ReactMap pois={poisnew} lastPoi={lastPoiId} ref={mapRef} callbackHandleNewPoiClicking={handleNewPoiClicking} callBackEditMarkerState={getEditMarkerState} usr={usr}></ReactMap>
+                <ReactMap
+                    pois={poisnew}
+                    lastPoi={lastPoiId}
+                    ref={mapRef}
+                    callbackHandleNewPoiClicking={handleNewPoiClicking}
+                    callBackEditMarkerState={getEditMarkerState}
+                    usr={usr}/>
             </div>
             <div className="poi-list-div">
                 <h3>Points of interests</h3>
