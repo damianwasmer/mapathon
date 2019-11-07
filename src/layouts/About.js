@@ -20,7 +20,7 @@ export default class AboutPage extends React.Component{
             <li>Damian Wasmer</li>
             <li>Samuel Pinto Da Silva</li>
           </ul>
-          <img className="groupPicture" src="https://www.nicepng.com/png/detail/131-1318482_male-human-group-vector-group-of-people-icon.png"/>
+          <img className="groupPicture" src="https://www.nicepng.com/png/detail/131-1318482_male-human-group-vector-group-of-people-icon.png" alt={"Developerteam"}/>
 
           <p> Everyone joining forces, teamwork was the cornerstone of this project. </p>
 

@@ -7,8 +7,7 @@ const ModalCategories  = (props) => {
     const {
         categoryTitle,
         categoryContent,
-        className,
-        modalTitle,
+        className
     } = props;
 
     const [modal, setModal] = useState(false);

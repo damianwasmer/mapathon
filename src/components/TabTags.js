@@ -25,6 +25,7 @@ const TabTags = (props) => {
                             <th scope="row"><Link to={'/manage/tag/' + tag.id}>{tag.id}</Link></th>
                             <td>{tag.name}</td>
                             <td><img
+                                alt={"Tag"}
                                 src={tag.image}
                                 style={{maxWidth: '100%', maxHeight: '5vh'}}
                             /></td>

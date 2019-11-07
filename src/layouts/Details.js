@@ -39,7 +39,6 @@ export default function Details(props){
 
     //Status
     let [status, setStatus] = useState([]);
-    let [test, setTest] = useState(1);
 
     useEffect(() => {
         let myPoi = request(
@@ -184,18 +183,6 @@ export default function Details(props){
             setTags(responseTag);
         }
 
-        let responseStat = await request(
-            "GET",
-            `${process.env.REACT_APP_SERVER_URL}${endpoints.status}`,
-            getTokenSilently,
-            loginWithRedirect,
-            null
-        );
-
-        if (responseStat && responseStat.length > 0) {
-            setStatus(responseStat);
-        }
-
         return;
     };
 
@@ -231,14 +218,6 @@ export default function Details(props){
                         deleteClicked={deletePoi}/>
                     }
                 </div>}
-
-                <div>
-                    {status && (
-                        <span className="status">
-                            <small>{status.name}</small>
-                        </span>
-                    )}
-                </div>
 
                 <POIForm thisPoi={poi} isEdit={isEdit} setIsEdit={setIsEdit} newPoi={newPOI}
                          currentId={currentId} setCurrentId={setCurrentId} isNew={isNew} isClicked={isClicked}

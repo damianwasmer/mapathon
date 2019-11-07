@@ -25,6 +25,7 @@ const TabCategories = (props) => {
                             <th scope="row"><Link to={'/manage/category/' + category.id}>{category.id}</Link></th>
                             <td>{category.name}</td>
                             <td><img
+                                alt={"Categorie"}
                                 src={category.image}
                                 style={{maxWidth: '100%', maxHeight: '5vh'}}
                             /></td>

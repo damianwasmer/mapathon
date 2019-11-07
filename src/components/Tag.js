@@ -13,6 +13,7 @@ export default function Tag(props){
       >
           {tag.name} <img
           src={tag.image}
+          alt={"Tag"}
           style={{maxWidth: '12pt'}}
       />
       </Button>

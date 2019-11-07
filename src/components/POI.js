@@ -2,8 +2,8 @@ import React from "react";
 import "./POI.css";
 
 export default function POI(props) {
-  const { id, name, description, lat, lng, image, url } = props;
-  const { Categories, Tags, User, Status } = props;
+  const { id, name } = props;
+  const { Status } = props;
 
   let statusColor;
   if (Status) {
