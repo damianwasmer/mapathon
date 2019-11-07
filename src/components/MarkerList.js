@@ -61,18 +61,18 @@ class MyMarker extends React.Component{
         this.props.callBackEditMarkerState(editMarkerState);
     }
 
-    //Design the Popup, above the selected Marker
-    render(){
-        let isHisPoi = () => {
-            if(this.props.usr.user){
-                if(this.props.usr.user.sub === this.props.poi.Creator.id){
-                    return true
-                }else{
-                    return false
-                }
+    isHisPoi = () => {
+        if(this.props.usr.user){
+            if(this.props.usr.user.sub === this.props.poi.Creator.id){
+                return true
+            }else{
+                return false
             }
         }
+    }
 
+    //Design the Popup, above the selected Marker
+    render(){
         let groupnr1 = 1;
         let groupnr2 = 2;
         let groupnr3 = 3;
@@ -162,7 +162,7 @@ class MyMarker extends React.Component{
                         </Button>
 
                     </Link>
-                    {isHisPoi() &&
+                    {this.isHisPoi() &&
                     <Link className="link-popup" to={"details/"+this.props.poi.id}>
                         <Button className="button-popup" onClick={this.sendEditState}>Edit</Button>
                     </Link>
