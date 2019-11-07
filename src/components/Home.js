@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import "./Home.css";
 import ReactMap from "./Map";
 import POIList from "./POIList";
-import Footer from "./Footer";
 import request from "../utils/request";
 import endpoints from "../endpoints";
 import {useAuth0} from "../react-auth0-spa";
@@ -21,39 +20,40 @@ export default function HomePage(props){
     let history = useHistory();
 
     //Filtering the list
-    let [filtergroupe, setFilterGroupe] = useState(false);
     let [filterusr, setFilterUsr] = useState(false);
-    let [groupnr, setGroupnr] = useState(1);
+    let [groupnr, setGroupnr] = useState(10);
 
     //Attributes for the groupe filtering
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [dropDownValue, setDropDownValue] = useState("Select a group");
     const toggleDropdown = () => setDropdownOpen(prevState => !prevState);
 
+
     //Change the value of the dropdown
     let changeValue = e => {
         setDropDownValue(e.currentTarget.textContent)
-        setGroupnr(e.currentTarget.textContent.substr(6,1))
+        if(e.currentTarget.textContent == "All"){
+            setGroupnr(10)
+        } else {
+            setGroupnr(e.currentTarget.textContent.substr(6,1))
+        }
     }
 
     //to save the filtered list of poi's
     let poisnew = pois;
 
-    let handleFilterGroupe = e => {
-        setFilterGroupe(!filtergroupe);
-    };
-
     let handleFilterUser = e => {
         setFilterUsr(!filterusr);
     };
 
-    //Customizing the list of POIs
-    if (filtergroupe && filterusr) {
-        poisnew = pois.filter(poi => poi.group == [groupnr] && poi.Creator.name == [usr.user.name]);
-    } else if (filtergroupe) {
-        poisnew = pois.filter(poi => poi.group == [groupnr]);
-    } else if (filterusr) {
+    if(groupnr == 10 && filterusr){
         poisnew = pois.filter(poi => poi.Creator.name == [usr.user.name]);
+    } else if(groupnr == 10){
+        poisnew = pois;
+    } else if(groupnr != 10 && filterusr){
+        poisnew = pois.filter(poi => poi.group == [groupnr] && poi.Creator.name == [usr.user.name]);
+    } else if (groupnr != 10 ){
+        poisnew = pois.filter(poi => poi.group == [groupnr]);
     }
 
     // get all the POI informations
@@ -158,6 +158,9 @@ export default function HomePage(props){
                         </DropdownToggle>
                         <DropdownMenu>
                             <DropdownItem>
+                                <div onClick={changeValue}>All</div>
+                            </DropdownItem>
+                            <DropdownItem>
                                 <div onClick={changeValue}>Group 1</div>
                             </DropdownItem>
                             <DropdownItem>
@@ -171,18 +174,8 @@ export default function HomePage(props){
                             </DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
-
                     <label htmlFor="normal-switch">
-                        Activate filter by Groupe &ensp;
-                        <Switch
-                            onChange={handleFilterGroupe}
-                            checked={filtergroupe}
-                            id="normal-switch"
-                        />
-                    </label>
-                    <br/>
-                    <label htmlFor="normal-switch">
-                        POI's of the user: &ensp;
+                        Only your POIs: &ensp;
                         <Switch
                             onChange={handleFilterUser}
                             checked={filterusr}
