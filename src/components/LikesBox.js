@@ -36,16 +36,20 @@ export default function LikesBox(props){
     }
 
     if(poi.liked){
-        button = <img onClick={onClickButton} id={"btnLike"} src={"https://image.flaticon.com/icons/svg/148/148836.svg"}/>
+        button = <img style={styleImg} onClick={onClickButton} id={"btnLike"} src={"https://image.flaticon.com/icons/svg/148/148836.svg"}/>
     }else{
-        button = <img onClick={onClickButton} id={"btnLike"} src={"https://image.flaticon.com/icons/svg/149/149217.svg"}/>
+        button = <img style={styleImg} onClick={onClickButton} id={"btnLike"} src={"https://image.flaticon.com/icons/svg/149/149217.svg"}/>
     }
 
     return(
-        <div>
-            <label>Likes : {poi.likes}</label>
-            {button}
-        </div>
+        <table>
+            <label style={{fontSize : "35px"}}>{poi.likes}</label>{button}
+        </table>
     )
 
+}
+
+const styleImg = {
+    weight : "40px",
+    height : "40px"
 }
