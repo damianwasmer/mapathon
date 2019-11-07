@@ -210,7 +210,6 @@ export default function Details(props){
                 </div>}
 
                 <div>
-                    {test}
                     {status && (
                         <span className="status">
                             <small>{status.name}</small>

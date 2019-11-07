@@ -148,6 +148,20 @@ function POIForm(props){
                         onBlur={handleBlur}
                         value={values.image}
                       />
+
+                      {errors.url && touched.url && errors.url}
+                      {props.thisPoi && props.thisPoi.Status && (
+                          <span>
+                                        <h4>Current Status: {props.thisPoi.Status.name}</h4>
+                                    </span>
+                      )}
+
+                      {props.thisPoi && !props.thisPoi.Status && (
+                          <span>
+                                        <h4>Current Status: Not defined</h4>
+                                    </span>
+                      )}
+
                       {errors.image && touched.image && errors.image}
                       {!props.isNew &&
                       <div>
