@@ -32,7 +32,7 @@ export default function HomePage(props){
     //Change the value of the dropdown
     let changeValue = e => {
         setDropDownValue(e.currentTarget.textContent);
-        if(e.currentTarget.textContent === "All"){
+        if(e.currentTarget.textContent == "All"){
             setGroupnr(10)
         } else {
             setGroupnr(e.currentTarget.textContent.substr(6,1))
@@ -46,14 +46,14 @@ export default function HomePage(props){
         setFilterUsr(!filterusr);
     };
 
-    if(groupnr === 10 && filterusr){
-        poisnew = pois.filter(poi => poi.Creator.name === [usr.user.name]);
-    } else if(groupnr === 10){
+    if(groupnr == 10 && filterusr){
+        poisnew = pois.filter(poi => poi.Creator.name == [usr.user.name]);
+    } else if(groupnr == 10){
         poisnew = pois;
-    } else if(groupnr !== 10 && filterusr){
-        poisnew = pois.filter(poi => poi.group === [groupnr] && poi.Creator.name === [usr.user.name]);
-    } else if (groupnr !== 10 ){
-        poisnew = pois.filter(poi => poi.group === [groupnr]);
+    } else if(groupnr != 10 && filterusr){
+        poisnew = pois.filter(poi => poi.group == [groupnr] && poi.Creator.name == [usr.user.name]);
+    } else if (groupnr != 10 ){
+        poisnew = pois.filter(poi => poi.group == [groupnr]);
     }
     //sort the list of poi alphabetically
     pois.sort((a, b) => a.name.localeCompare(b.name));
