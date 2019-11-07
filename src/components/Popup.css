@@ -4,6 +4,7 @@
 
 .informations-popup{
     margin-bottom: 10px;
+    overflow: hidden;
 }
 
 .button-popup{

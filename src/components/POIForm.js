@@ -5,8 +5,7 @@ import './POIForm.css';
 import endpoints from "../endpoints";
 import {useAuth0} from "../react-auth0-spa";
 import {Button} from "reactstrap";
-import {Link, useHistory} from "react-router-dom";
-import requestPatch from "../utils/requestPatch";
+import {useHistory} from "react-router-dom";
 
 function POIForm(props){
 
@@ -35,7 +34,11 @@ function POIForm(props){
     return(
       <div className='detail-div'>
           <div className='img-div'>
-              <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}} src={props.thisPoi.image} alt="POI image"/><br/>
+              {
+                  props.thisPoi && props.thisPoi.image.length <= 0 &&
+                  <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}} src={"https://blog.stylingandroid.com/wp-content/themes/lontano-pro/images/no-image-slide.png"}/>
+              }
+              <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}} src={props.thisPoi.image} /><br/>
           </div>
 
           <div className='detail-content'>
