@@ -31,14 +31,22 @@ function POIForm(props){
         }
     }
 
+    console.log("HEY")
+    console.log(props.thisPoi.image);
+
+    let img;
+
+    if(props.thisPoi.image){
+        img = <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}} src={props.thisPoi.image} />
+    }else{
+        img = <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}} src={"https://www.groupeiam.com/wp-content/plugins/post-grid/assets/frontend/css/images/placeholder.png"}/>
+    }
+
     return(
       <div className='detail-div'>
           <div className='img-div'>
-              {
-                  props.thisPoi && props.thisPoi.image.length <= 0 &&
-                  <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}} src={"https://blog.stylingandroid.com/wp-content/themes/lontano-pro/images/no-image-slide.png"}/>
-              }
-              <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}} src={props.thisPoi.image} /><br/>
+              {img}
+              <br/>
           </div>
 
           <div className='detail-content'>

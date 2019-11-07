@@ -189,10 +189,21 @@ export default function Details(props){
 
         return(
             <div>
+                <table>
+                    <tr>
+                        <td className={'TabLine'}>
+                            {!isNew &&
+                            <h1>{poi.name}</h1>
+                            }
+                        </td>
+                        <td className={'TabLine'}>
+                            {!isEdit && !isNew &&
+                            <LikesBox id={'likeBox'} thisPoi={poi} onChangeLike={onChangeLike} classNmae={'headerDetail'}/>
+                            }
+                        </td>
+                    </tr>
+                </table>
 
-                {!isEdit && !isNew &&
-                    <LikesBox thisPoi={poi} onChangeLike={onChangeLike}/>
-                }
 
                 {(poiCreator && currentUser.sub === poiCreator.id) &&
                 <div className='div-button'>

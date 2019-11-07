@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import endpoints from "../endpoints";
 import requestPatch from "../utils/requestPatch";
 import {useAuth0} from "../react-auth0-spa";
+import "./Details.css"
 
 export default function LikesBox(props){
 
@@ -42,14 +43,15 @@ export default function LikesBox(props){
     }
 
     return(
-        <table>
+        <div id={'headerDetail'}>
             <label style={{fontSize : "35px"}}>{poi.likes}</label>{button}
-        </table>
+        </div>
     )
 
 }
 
 const styleImg = {
-    weight : "40px",
-    height : "40px"
+    weight : "50px",
+    height : "50px",
+    float : "right",
 }
