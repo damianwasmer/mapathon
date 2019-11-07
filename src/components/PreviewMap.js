@@ -18,14 +18,27 @@ export default class PreviewMap extends Component<{}, State> {
         zoom: 13,
     };
 
+    componentDidUpdate() {
+        if(this.props.lat !== this.state.lat || this.props.lng !== this.state.lng)
+            this.setState({
+                lat: this.props.lat,
+                lng: this.props.lng
+            })
+    };
+
     handleClick = (e) => {
         if(this.state.isChanging){
             const { lat, lng } = e.latlng;
-            console.log(lat, lng);
+            var values = {
+                lat: lat,
+                lng: lng
+            };
+            this.props.editPoi(values);
             L.DomUtil.removeClass(this.leafletMap.leafletElement._container,'crosshair-cursor-enabled');
             this.setState(state => ({isChanging: !state.isChanging}));
+            this.setState({lat: values.lat, lng: values.lng});
         }
-    }
+    };
 
     changePosClick = () => {
         L.DomUtil.addClass(this.leafletMap.leafletElement._container,'crosshair-cursor-enabled');
@@ -36,7 +49,13 @@ export default class PreviewMap extends Component<{}, State> {
     render() {
         const position = [this.state.lat, this.state.lng];
         return (
-            <Map center={position} zoom={this.state.zoom} style={{height: '100%'}} onClick={this.handleClick} ref={m => { this.leafletMap = m; }}  maxZoom={15}>
+            <Map
+                center={position}
+                zoom={this.state.zoom}
+                style={{height: '100%'}}
+                onClick={this.handleClick}
+                ref={m => { this.leafletMap = m; }}
+                maxZoom={15}>
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -39,9 +39,9 @@ function POIForm(props){
           </div>
 
           <div className='detail-content'>
-              <Link to='/' className='back-button'>Back</Link>
               {props.newPoi &&
               <Formik
+                  enableReinitialize
                 initialValues={{    name: props.newPoi.name,
                     description: props.newPoi.description,
                     lat: props.newPoi.lat,
@@ -73,16 +73,10 @@ function POIForm(props){
                             console.log(response.id);
                             currentId = response.id ;
                         }else{
-                            let response = await requestPatch(
-                              `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}${currentId}`,
-                              getTokenSilently,
-                              loginWithRedirect,
-                              values
-                            );
-                            props.setIsEdit(false);
+                            props.editPoi(values);
                             props.setValueButtonEdit("Edit");
                         }
-                        refreshPage();
+                        /*refreshPage();*/
 
                     }, 400);
                 }}
