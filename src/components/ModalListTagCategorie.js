@@ -29,7 +29,12 @@ export default function ModalListTagCategorie(props) {
                 toggle={props.toggle}
                 style={{width:"400px"}}
             >
+                {props.isCategorie &&
                 <ModalHeader toggle={props.toggle}>Add categories to {props.thisPoi.name}</ModalHeader>
+                }
+                {!props.isCategorie &&
+                <ModalHeader toggle={props.toggle}>Add tags to {props.thisPoi.name}</ModalHeader>
+                }
                 <ModalBody>
                     <input id="searchLabel" type="text" name="search" placeholder="Search..." onChange={() => {
                         let inputText = document.getElementById("searchLabel").value;

@@ -11,10 +11,18 @@ export default function BoxCategories(props){
 
     let poiCategories = props.thisPoi.Categories;
     let [arrayCategories, setArrayCategories] = useState([]);
+    let [isCat, setIsCat] = useState(false);
     const [modal, setModal] = useState(false);
     let { loginWithRedirect, getTokenSilently } = useAuth0();
 
-    const toggle = () => setModal(!modal)
+    const toggle = () => {
+        setModal(!modal);
+        if(!modal){
+            setIsCat(true);
+        }else{
+            setIsCat(false);
+        }
+    };
 
     let setArrayC = (value) => setArrayCategories(value);
 
@@ -52,7 +60,7 @@ export default function BoxCategories(props){
 
             <ModalListTagCategorie allItem={props.allCategories.sort((a, b) => (a.name > b.name) ? 1 : -1)} setArrayItem={setArrayC} arrayItem={arrayCategories}
                                    thisPoiItem={poiCategories} onChangeTC={props.onChangeC} modal={modal} setModal={setModal}
-                                   toggle={toggle} thisPoi={props.thisPoi} saveChange={saveChangeCategories}/>
+                                   toggle={toggle} thisPoi={props.thisPoi} saveChange={saveChangeCategories} isCategorie={isCat}/>
 
         </div>
 
