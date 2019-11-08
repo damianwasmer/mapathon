@@ -6,6 +6,7 @@ import {useAuth0} from "../react-auth0-spa";
 import {Button} from "reactstrap";
 import {useHistory} from "react-router-dom";
 import request from "../utils/request";
+import LoadingSpinner from "./LoadingSpinner";
 
 function POIForm(props){
 
@@ -24,7 +25,6 @@ function POIForm(props){
         }
     };
 
-
     let img;
 
     if(props.thisPoi.image){
@@ -42,7 +42,7 @@ function POIForm(props){
           </div>
 
           <div className='detail-content'>
-              {props.newPoi &&
+              {props.newPoi ? (
               <Formik
                   enableReinitialize
                 initialValues={{    name: props.newPoi.name,
@@ -184,7 +184,7 @@ function POIForm(props){
                   </form>
                 )}
               >
-              </Formik>}
+              </Formik>) : (<LoadingSpinner/>)}
           </div>
       </div>
     )
