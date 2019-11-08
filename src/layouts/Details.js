@@ -251,7 +251,7 @@ export default function Details(props){
                     {/*Preview map*/}
                     {poi.lat && poi.lng &&
                     <div className="div-preview-map">
-                        <PreviewMap lat={poi.lat} lng={poi.lng} editPoi={editPoi}/>
+                        <PreviewMap lat={poi.lat} lng={poi.lng} poiCreator={poiCreator} currentUser={currentUser} editPoi={editPoi}/>
                     </div>
 
                     }

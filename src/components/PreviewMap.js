@@ -61,9 +61,11 @@ export default class PreviewMap extends Component<{}, State> {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <Marker position={position}>
+                    {(this.props.poiCreator && this.props.currentUser.sub === this.props.poiCreator.id) &&
                     <Popup>
                         <Button onClick={this.changePosClick}>Change Position</Button>
                     </Popup>
+                    }
                 </Marker>
             </Map>
         )
