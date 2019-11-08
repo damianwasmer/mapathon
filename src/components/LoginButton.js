@@ -13,7 +13,7 @@ export default function LoginButton(){
         );
     }
     else{
-        return <NavLink onClick={usr.loginWithRedirect} href="#">login</NavLink>;
+        return <NavLink onClick={usr.loginWithRedirect} href="#">Login</NavLink>;
     }
 
 

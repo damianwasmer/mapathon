@@ -18,6 +18,7 @@ export default function HomePage(props){
     let [latToPass, lngToPass] = useState(0);
     let usr = useAuth0();
     let history = useHistory();
+    let poiList;
 
     //Filtering the list
     let [filterusr, setFilterUsr] = useState(false);
@@ -61,13 +62,16 @@ export default function HomePage(props){
     // get all the POI informations
     let handlePOIsClick = async e => {
 
-        let poiList = await request(
-            "GET",
-            `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}`,
-            getTokenSilently,
-            loginWithRedirect,
-            null
-        );
+        if(usr.isAuthenticated){
+            poiList = await request(
+                "GET",
+                `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}`,
+                getTokenSilently,
+                loginWithRedirect,
+                null
+            );
+        };
+
 
         if (poiList && poiList.length > 0) {
             console.log(poiList);
