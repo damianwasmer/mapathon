@@ -112,7 +112,7 @@ export default function EditCategory(props) {
                         group: category.group}}
                     validate={values => {
                         let errors = {};
-                        {/*Check required name*/}
+                        /*Check required name*/
                         if (!values.name) {
                             errors.name = 'Required';
                         }

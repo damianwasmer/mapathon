@@ -96,7 +96,7 @@ export default function EditTag(props){
         console.log(response);
         currentId = 0;
         history.push("/manage/");
-    }
+    };
 
     //Returns a form to edit/save/display tags
     return(
@@ -111,7 +111,7 @@ export default function EditTag(props){
                         group: '3'}}
                     validate={values => {
                         let errors = {};
-                        {/*Check required name*/}
+                        /*Check required name*/
                         if (!values.name) {
                             errors.name = 'Required';
                         }

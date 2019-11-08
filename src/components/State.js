@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import endpoints from "../endpoints";
 import {useAuth0} from "../react-auth0-spa";
 import "../layouts/Details.css"
@@ -8,7 +8,6 @@ import {Button} from 'reactstrap';
 export default function LikesBox(props){
 
     let { loginWithRedirect, getTokenSilently } = useAuth0();
-    let poi = props.thisPoi;
     const verifyID = 1;
     const inProgressID = 2;
     const unverifyID = 3;
