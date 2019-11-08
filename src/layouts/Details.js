@@ -11,6 +11,7 @@ import {Link, useHistory} from "react-router-dom";
 import PreviewMap from "../components/PreviewMap";
 import "./Details.css";
 import LikesBox from "../components/LikesBox";
+import State from "../components/State";
 
 export default function Details(props){
 
@@ -37,8 +38,9 @@ export default function Details(props){
     let [isChangeLike, setIsChangeLike] = useState(false)
     let [isLiked, setIsLiked] = useState(false);
 
-    //Status
-    let [status, setStatus] = useState([]);
+    //state
+    let [isChangeState, setIsChangeState] = useState(false)
+    let [isStated, setIsState] = useState(false);
 
     useEffect(() => {
         let myPoi = request(
@@ -50,7 +52,8 @@ export default function Details(props){
         ).then(token => {setPoi(token)} );
         setIsChangeCategoriesTags(false);
         setIsChangeLike(false);
-    }, [isChangeCategoriesTags, isChangeLike, isPosEdited, currentId]);
+        setIsChangeState(false);
+    }, [isChangeCategoriesTags, isChangeLike, isChangeState, isPosEdited, currentId]);
 
     useEffect( () => {
 
@@ -153,6 +156,7 @@ export default function Details(props){
 
     let onChangeCategoriesTag = (value) => setIsChangeCategoriesTags(value);
     let onChangeLike = (value) => setIsChangeLike(value);
+    let onChangeState = (value) => setIsChangeState(value);
 
     // get all the POI informations
     let fetchCategoriesAndTags = async () => {
@@ -223,6 +227,10 @@ export default function Details(props){
                          currentId={currentId} setCurrentId={setCurrentId} isNew={isNew} isClicked={isClicked}
                          setIsClicked={setIsClicked}
                          setValueButtonEdit={setValueButtonEdit} editPoi={editPoi}/>
+
+                {(poiCreator && currentUser.sub === poiCreator.id && !isEdit && !isNew) &&
+                <State id={'state'} thisPoi={poi} onChangeState={onChangeState} classNmae={'headerDetail'}/>
+                }
 
                 {!isEdit && !isNew &&
                 <div className="div-box-and-map">

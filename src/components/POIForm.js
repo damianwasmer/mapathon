@@ -165,6 +165,14 @@ function POIForm(props){
                         onBlur={handleBlur}
                         value={values.image}
                       />
+                      {errors.image && touched.image && errors.image}
+                      {!props.isNew &&
+                      <div>
+                          Created at <b>{props.thisPoi.createdAt}</b> by {props.thisPoi.Creator &&
+                      <b>{props.thisPoi.Creator.name}</b>} (Group {props.thisPoi.group})
+                          <div>Updated at <b>{props.thisPoi.updatedAt}</b></div>
+                      </div>
+                      }
 
                       {errors.url && touched.url && errors.url}
                       {props.thisPoi && props.thisPoi.Status && (
@@ -179,14 +187,6 @@ function POIForm(props){
                                     </span>
                       )}
 
-                      {errors.image && touched.image && errors.image}
-                      {!props.isNew &&
-                      <div>
-                          Created at <b>{props.thisPoi.createdAt}</b> by {props.thisPoi.Creator &&
-                      <b>{props.thisPoi.Creator.name}</b>} (Group {props.thisPoi.group})
-                          <div>Updated at <b>{props.thisPoi.updatedAt}</b></div>
-                      </div>
-                      }
                       {(props.isEdit || props.isNew) &&
                       <Button style={{backgroundColor: 'darkgreen', display: "inline-block", marginTop: '10px'}}
                               type="submit" disabled={isSubmitting}
