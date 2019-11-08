@@ -120,7 +120,6 @@ export default function EditCategory(props) {
                     }}
                     onSubmit={(values, { setSubmitting }) => {
                         setTimeout(async () => {
-                            alert(JSON.stringify(values, null, 2));
                             setSubmitting(false);
 
                             if(isNew){
