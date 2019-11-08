@@ -33,7 +33,7 @@ const ModalCategories  = (props) => {
                 </ModalFooter>
             </Modal>
         </>
-    );
-}
+    )
+};
 
 export default ModalCategories;

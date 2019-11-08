@@ -6,7 +6,7 @@ import endpoints from "./endpoints";
 import Loading from "./components/Loading";
 import POI from "./components/POI";
 import CustomNavbar from "./components/Navbar";
-import { BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import About from "./layouts/About";
 import HelpPage from "./layouts/Help";
 import Home from "./layouts/Home";
@@ -23,23 +23,21 @@ function App(props) {
     let [isEditMarker, setIsEditMarker] = useState(null);
     let { loading } = useAuth0();
 
-  if (loading) {
-    return <Loading />;
-  }
+    // if the user is loged in
+    if (loading) {
+        return <Loading />;
+    }
 
     //Get data from home Jonas
     let handleNewPoiClicking = (lat, lng) => {
-        /*latToPass = lat ;
-        lngToPass = lng ;
-        alert(latToPass.toString() + lngToPass.toString())*/
         setPosClicked({lng: lng, lat: lat});
-    }
+    };
 
     let getEditMarkerState = (editMarkerState) => {
       setIsEditMarker(editMarkerState) ;
-    }
+    };
 
-  // if the user is loged in
+
 
   // DON'T ADD PAGE AFTER <Route path="/"> or it will never be accessed
   return (
@@ -79,44 +77,3 @@ function App(props) {
 
 export default App;
 
-function TeachersCode(props){
-
-  let [pois, setPois] = useState([]);
-  let { loginWithRedirect, getTokenSilently } = useAuth0();
-
-  let handlePOIsClick = async e => {
-    e.preventDefault();
-    let pois = await request(
-        "GET",
-        `${process.env.REACT_APP_SERVER_URL}${endpoints.pois}`,
-        getTokenSilently,
-        loginWithRedirect,
-        null
-    );
-
-    if (pois && pois.length > 0) {
-      console.log(pois);
-      setPois(pois);
-    }
-  };
-
-  return(
-      <header className="App-header">
-        <h1>Mapathon</h1>
-        <br />
-        <a className="App-link" href="#" onClick={handlePOIsClick}>
-          Get POIs
-        </a>
-        {pois && pois.length > 0 && (
-            <ul className="POI-List">
-              {pois.map(poi => (
-                  <li key={poi.id}>
-                    <POI {...poi} />
-                  </li>
-              ))}
-            </ul>
-        )}
-        <p></p>
-      </header>
-  );
-}

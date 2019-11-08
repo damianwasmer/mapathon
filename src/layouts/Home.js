@@ -47,13 +47,13 @@ export default function HomePage(props){
     };
 
     if(groupnr == 10 && filterusr){
-        poisnew = pois.filter(poi => poi.Creator.name == [usr.user.name]);
+        poisnew = pois.filter(poi => poi.Creator.name == usr.user.name);
     } else if(groupnr == 10){
         poisnew = pois;
     } else if(groupnr != 10 && filterusr){
-        poisnew = pois.filter(poi => poi.group == [groupnr] && poi.Creator.name == [usr.user.name]);
+        poisnew = pois.filter(poi => poi.group == groupnr && poi.Creator.name == usr.user.name);
     } else if (groupnr != 10 ){
-        poisnew = pois.filter(poi => poi.group == [groupnr]);
+        poisnew = pois.filter(poi => poi.group == groupnr);
     }
     //sort the list of poi alphabetically
     pois.sort((a, b) => a.name.localeCompare(b.name));

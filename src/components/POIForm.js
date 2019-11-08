@@ -13,14 +13,7 @@ function POIForm(props){
     let url = window.location.href;
     let history = useHistory();
 
-    let currentUser = props.currentUser;
-    let poiCreator = props.thisPoi.Creator;
-
     let currentId = url.substring(url.lastIndexOf("/")+1);
-
-    function refreshPage() {
-        history.push("/details/" + currentId)
-    }
 
     //Checks if poi is new or editable
     let newOrEditable = () => {
@@ -29,18 +22,16 @@ function POIForm(props){
         }else{
             return !(props.isEdit);
         }
-    }
+    };
 
-    console.log("HEY")
-    console.log(props.thisPoi.image);
 
     let img;
 
     if(props.thisPoi.image){
-        img = <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}} src={props.thisPoi.image} />
+        img = <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}} src={props.thisPoi.image} alt=""/>
     }else{
         img = <img style={{maxHeight: "100%", maxWidth: "100%", float: "right"}}
-                   src={"https://www.groupeiam.com/wp-content/plugins/post-grid/assets/frontend/css/images/placeholder.png"}/>
+                   src={"https://www.groupeiam.com/wp-content/plugins/post-grid/assets/frontend/css/images/placeholder.png"} alt=""/>
     }
 
     return(
@@ -55,12 +46,12 @@ function POIForm(props){
               <Formik
                   enableReinitialize
                 initialValues={{    name: props.newPoi.name,
-                    description: props.newPoi.description,
-                    lat: props.newPoi.lat,
-                    lng: props.newPoi.lng,
-                    image: props.newPoi.image,
-                    url: props.newPoi.url,
-                    group: props.newPoi.group}}
+                                    description: props.newPoi.description,
+                                    lat: props.newPoi.lat,
+                                    lng: props.newPoi.lng,
+                                    image: props.newPoi.image,
+                                    url: props.newPoi.url,
+                                    group: props.newPoi.group}}
                 validate={values => {
                     let errors = {};
                     {/*Check required name*/}
@@ -71,7 +62,6 @@ function POIForm(props){
                 }}
                 onSubmit={(values, { setSubmitting }) => {
                     setTimeout(async() => {
-                        alert(JSON.stringify(values, null, 2));
                         setSubmitting(false);
 
                         if(props.isNew){
@@ -82,7 +72,6 @@ function POIForm(props){
                                 loginWithRedirect,
                                 values
                             );
-                            alert(response);
                             console.log(response);
                             console.log(response.id);
                             currentId = response.id ;
@@ -93,8 +82,6 @@ function POIForm(props){
                             props.editPoi(values);
                             props.setValueButtonEdit("Edit");
                         }
-                        /*refreshPage();*/
-
                     }, 400);
                 }}
                 render={({
@@ -139,7 +126,6 @@ function POIForm(props){
                       <span><h4>Description: </h4></span>
                       <textarea
                         disabled={newOrEditable()}
-                        type="text"
                         name="description"
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -165,6 +151,14 @@ function POIForm(props){
                         onBlur={handleBlur}
                         value={values.image}
                       />
+                      {errors.image && touched.image && errors.image}
+                      {!props.isNew &&
+                      <div>
+                          Created at <b>{props.thisPoi.createdAt}</b> by {props.thisPoi.Creator &&
+                      <b>{props.thisPoi.Creator.name}</b>} (Group {props.thisPoi.group})
+                          <div>Updated at <b>{props.thisPoi.updatedAt}</b></div>
+                      </div>
+                      }
 
                       {errors.url && touched.url && errors.url}
                       {props.thisPoi && props.thisPoi.Status && (
@@ -179,14 +173,6 @@ function POIForm(props){
                                     </span>
                       )}
 
-                      {errors.image && touched.image && errors.image}
-                      {!props.isNew &&
-                      <div>
-                          Created at <b>{props.thisPoi.createdAt}</b> by {props.thisPoi.Creator &&
-                      <b>{props.thisPoi.Creator.name}</b>} (Group {props.thisPoi.group})
-                          <div>Updated at <b>{props.thisPoi.updatedAt}</b></div>
-                      </div>
-                      }
                       {(props.isEdit || props.isNew) &&
                       <Button style={{backgroundColor: 'darkgreen', display: "inline-block", marginTop: '10px'}}
                               type="submit" disabled={isSubmitting}

@@ -13,11 +13,11 @@ export default function MarkerList(props){
 
     let getEditMarkerState = (editMarkerState) => {
         sendEditMarkerState(editMarkerState)
-    }
+    };
 
     let sendEditMarkerState = (editMarkerState) => {
         props.callBackEditMarkerState(editMarkerState);
-    }
+    };
 
 
     return(
@@ -59,7 +59,7 @@ class MyMarker extends React.Component{
     sendEditState = () => {
         let editMarkerState = true;
         this.props.callBackEditMarkerState(editMarkerState);
-    }
+    };
 
     isHisPoi = () => {
         if(this.props.usr.user){
@@ -69,7 +69,7 @@ class MyMarker extends React.Component{
                 return false
             }
         }
-    }
+    };
 
     //Design the Popup, above the selected Marker
     render(){
@@ -116,16 +116,16 @@ class MyMarker extends React.Component{
 
         let icon;
 
-        if(this.props.poi.group == [groupnr1]){
+        if(this.props.poi.group == groupnr1){
             icon = gr1;
-        } else if(this.props.poi.group == [groupnr2]){
+        } else if(this.props.poi.group == groupnr2){
             icon = gr2;
-        } else if(this.props.poi.group == [groupnr3]){
+        } else if(this.props.poi.group == groupnr3){
             icon = gr3;
         }
         else{
             icon = gr4
-        };
+        }
 
         return (
         <>
@@ -173,75 +173,5 @@ class MyMarker extends React.Component{
         </>
     )
 }
-};
+}
 
-class MyMarker2 extends React.Component{
-
-    constructor(props){
-        super(props);
-        this.hRef = React.createRef(); //the reference of the marker
-    }
-
-    componentDidUpdate(): void {
-        //if the marker id is the same as the last poi clicked,
-        //We open the popup (when a user has clicked on one poi
-        //on the poiList)
-        if (this.props.poi.id === this.props.lastPoiId) {
-            this.leafletPopup.leafletElement.openPopup();
-        }
-    }
-
-    //Design the Popup, above the selected Marker
-    render(){
-        const myIcon = L.icon({
-            iconUrl: require('../userMarker.svg'),
-            iconSize: [58,58],
-            iconAnchor: [58, 58],
-            popupAnchor: null,
-            shadowUrl: null,
-            shadowSize: null,
-            shadowAnchor: null});
-
-
-        let isHisPoi = () => {
-            if(this.props.usr.user.sub === this.props.poi.Creator.id){
-                return true
-            }else{
-                return false
-            }
-        }
-
-        return (
-            <>
-                <Marker
-                    icon={myIcon}
-                    ref={m => { this.leafletPopup = m; }}
-                    position={[this.props.poi.lat, this.props.poi.lng]}
-                >
-                    <Popup className="popup">
-                        <div className="informations-popup">
-                            <h3>
-                                {this.props.poi.name}
-                            </h3>
-                            {this.props.poi.description}
-                        </div>
-                        <div className='img-popup'>
-                            <img style={{maxHeight: "100%", maxWidth: "100%"}} src={this.props.poi.image} alt="POI image"/><br/>
-                        </div>
-                        <Link className="link-popup" to={"details/"+this.props.poi.id}>
-                            <Button className="button-popup" >
-                                Details
-                            </Button>
-                        </Link>
-                        {isHisPoi() &&
-                            <Link className="link-popup" to={"details/"+this.props.poi.id}>
-                                <Button className="button-popup">Edit</Button>
-                            </Link>
-                        }
-
-                    </Popup>
-                </Marker>
-            </>
-        )
-    }
-};

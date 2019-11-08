@@ -14,12 +14,12 @@ export default function ModalListTagCategorie(props) {
                     props.setArrayItem(props.arrayItem.push(item.id))
                 }
             }
-        })
+        });
             props.onChangeTC(true);
             props.saveChange();
             props.toggle();
         }
-    }
+    };
 
     return(
         <>
@@ -40,7 +40,7 @@ export default function ModalListTagCategorie(props) {
                         let inputText = document.getElementById("searchLabel").value;
                         inputText = inputText.toUpperCase();
                         props.allItem.map((item, i) => {
-                            let cb = document.getElementById(item.id+"div")
+                            let cb = document.getElementById(item.id+"div");
                             if(cb != undefined || cb != null){
                                 let value = item.name.toUpperCase();
                                 if(value.indexOf(inputText) > -1){

@@ -11,6 +11,7 @@ import {Link, useHistory} from "react-router-dom";
 import PreviewMap from "../components/PreviewMap";
 import "./Details.css";
 import LikesBox from "../components/LikesBox";
+import State from "../components/State";
 
 export default function Details(props){
 
@@ -18,7 +19,7 @@ export default function Details(props){
     let positionLastSlash = url.lastIndexOf('/');
     let param = url.substring(positionLastSlash+1);
     let history = useHistory();
-    let [poi, setPoi] = useState(0)
+    let [poi, setPoi] = useState(0);
     let { loginWithRedirect, getTokenSilently } = useAuth0();
     let [isLoaded, setIsLoaded] = useState(false);
     let currentUser = useAuth0().user;
@@ -32,13 +33,11 @@ export default function Details(props){
     let [categories, setCategories] = useState([]);
     let [tags, setTags] = useState([]);
     let [isPosEdited, setIsPosEdited] = useState(false);
-    let [isPopupOpen, setIsPopupOpen] = useState(false);
     let [isChangeCategoriesTags, setIsChangeCategoriesTags] = useState(false);
-    let [isChangeLike, setIsChangeLike] = useState(false)
-    let [isLiked, setIsLiked] = useState(false);
+    let [isChangeLike, setIsChangeLike] = useState(false);
 
-    //Status
-    let [status, setStatus] = useState([]);
+    //state
+    let [isChangeState, setIsChangeState] = useState(false);
 
     useEffect(() => {
         let myPoi = request(
@@ -50,7 +49,8 @@ export default function Details(props){
         ).then(token => {setPoi(token)} );
         setIsChangeCategoriesTags(false);
         setIsChangeLike(false);
-    }, [isChangeCategoriesTags, isChangeLike, isPosEdited, currentId]);
+        setIsChangeState(false);
+    }, [isChangeCategoriesTags, isChangeLike, isChangeState, isPosEdited, currentId]);
 
     useEffect( () => {
 
@@ -103,7 +103,7 @@ export default function Details(props){
         url:'',
         group: 3,
         Creator: null
-    }
+    };
 
     let onClickEditButton = () => {
         if(isEdit){
@@ -153,6 +153,7 @@ export default function Details(props){
 
     let onChangeCategoriesTag = (value) => setIsChangeCategoriesTags(value);
     let onChangeLike = (value) => setIsChangeLike(value);
+    let onChangeState = (value) => setIsChangeState(value);
 
     // get all the POI informations
     let fetchCategoriesAndTags = async () => {
@@ -182,7 +183,6 @@ export default function Details(props){
         if (responseTag && responseTag.length > 0) {
             setTags(responseTag);
         }
-
         return;
     };
 
@@ -224,14 +224,29 @@ export default function Details(props){
                          setIsClicked={setIsClicked}
                          setValueButtonEdit={setValueButtonEdit} editPoi={editPoi}/>
 
+                {(poiCreator && currentUser.sub === poiCreator.id && !isEdit && !isNew) &&
+                <State id={'state'} thisPoi={poi} onChangeState={onChangeState} classNmae={'headerDetail'}/>
+                }
+
                 {!isEdit && !isNew &&
                 <div className="div-box-and-map">
                     <div style={{textAlign: 'left'}}>
                         <Link to='/' className='back-button' style={{verticalAlign: 'bottom', paddingLeft: '20px'}}>Back</Link>
                     </div>
                     <div className="div-box">
-                        <BoxCategories thisPoi={poi} currentId={currentId} currentUser={currentUser} allCategories={categories} onChangeC={onChangeCategoriesTag}/>
-                        <BoxTags thisPoi={poi} currentUser={currentUser} currentUser={currentUser} allTags={tags} onChangeT={onChangeCategoriesTag}/>
+                        <BoxCategories
+                            thisPoi={poi}
+                            currentId={currentId}
+                            currentUser={currentUser}
+                            allCategories={categories}
+                            onChangeC={onChangeCategoriesTag}
+                        />
+                        <BoxTags
+                            thisPoi={poi}
+                            currentUser={currentUser}
+                            allTags={tags}
+                            onChangeT={onChangeCategoriesTag}
+                        />
                     </div>
                     {/*Preview map*/}
                     {poi.lat && poi.lng &&
