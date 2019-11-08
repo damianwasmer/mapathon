@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import { useAuth0 } from "./react-auth0-spa";
-import request from "./utils/request";
-import endpoints from "./endpoints";
 import Loading from "./components/Loading";
-import POI from "./components/POI";
 import CustomNavbar from "./components/Navbar";
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
 import About from "./layouts/About";
