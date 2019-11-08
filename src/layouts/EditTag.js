@@ -7,6 +7,7 @@ import {Link, useHistory} from "react-router-dom";
 import request from "../utils/request";
 import {Button} from "reactstrap";
 import DeleteModal from "../components/DeleteModal";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function EditTag(props){
     let { user, loginWithRedirect, getTokenSilently } = useAuth0();
@@ -102,7 +103,7 @@ export default function EditTag(props){
     return(
         <div className='edit-wrapper'>
             <div className='div-edit'>
-                {tag &&
+                {tag ? (
                 <Formik
                     initialValues={{
                         name: tag.name,
@@ -232,7 +233,9 @@ export default function EditTag(props){
 
                         </form>
                     )}
-                </Formik>}
+                </Formik>) : (
+                    <LoadingSpinner/>
+                )}
                 <br/>
                 <Link className='back-button' to='/manage'>Back</Link>
             </div>

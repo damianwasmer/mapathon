@@ -7,6 +7,7 @@ import request from "../utils/request";
 import {Link, useHistory} from "react-router-dom";
 import {Button} from "reactstrap";
 import DeleteModal from "../components/DeleteModal";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 
 export default function EditCategory(props) {
@@ -104,7 +105,7 @@ export default function EditCategory(props) {
     return(
         <div className='edit-wrapper'>
             <div className='div-edit'>
-                {category &&
+                {category ? (
                 <Formik
                     initialValues={{
                         name: category.name,
@@ -206,7 +207,9 @@ export default function EditCategory(props) {
                             <span> </span>
                         </form>
                     )}
-                </Formik>}
+                </Formik>) : (
+                    <LoadingSpinner/>
+                )}
                 <br/>
                 <Link className='back-button' to='/manage'>Back</Link>
             </div>
