@@ -17,7 +17,7 @@
     }
 
     .help-img-left, .help-img-right {
-        width: 450px;
+        width: 500px;
         height: 300px;
         display: inline-flex;
         vertical-align: center;
@@ -79,7 +79,7 @@
 
     .help-img-left, .help-img-right {
         width: 270px;
-        height: 170px;
+        height: 160px;
         display: inline-flex;
         vertical-align: center;
     }

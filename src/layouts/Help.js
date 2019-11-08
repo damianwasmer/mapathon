@@ -127,7 +127,7 @@ export default class HelpPage extends React.Component{
                 "by clicking" a cross-shaped cursor will appear, allowing you to select a point on the map. Once this is done, the same form as
                 for the manual version will appear, with the "Latitude" and "Longitude" fields already filled in. The rest of the process is exactly
                 the same as the manual addition.
-                <img className="help-img-left" src="Printscreen_HelpPage/AddPOI_ByClicking.png.png" alt="Add POI by clicking"/>
+                <img className="help-img-left" src="Printscreen_HelpPage/AddPOI_ByClicking.png" alt="Add POI by clicking"/>
               </p>
             </td>
           </tr>
